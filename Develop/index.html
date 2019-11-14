@@ -1,8 +1,4 @@
-
-
-
- function generateHTML(team) {
-   return `<!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -21,23 +17,15 @@
     
         </style>
     <body>
-    ${team.map((member) => `
     <div class="card">
     <h3>Team Member</h3>  
-      <h4>${member.name}</h4>
+      <h4>Daniel</h4>
+    </div><div class="card">
+    <h3>Team Member</h3>  
+      <h4>Bov</h4>
+    </div><div class="card">
+    <h3>Team Member</h3>  
+      <h4>Rob</h4>
     </div>
-    `.trim()).join('')}
     </body>
-    </html>`
-}
-
-
-
-
-
-
-
-
-
-
-module.exports = generateHTML;
+    </html>

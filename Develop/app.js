@@ -53,7 +53,6 @@ const teamMaker = () => {
         "Manager"
       );
       team.push(teamManager);
-      return console.log(team);
     })
     .then(function() {
       more();
@@ -144,11 +143,14 @@ const newEngineer = () => {
 
 //a function that fires once all information has been collected. Currently only prints team array, will fire the generateHTML function eventually.
 
-const done = () => {
+async function done(team)  {
+  
   console.log(
     "Thank you for adding all your team members. With use of magic, we will now present you with a webpage for them! Here are all team members added:"
-  );
-  console.log(team);
+  ); 
+  
+    generateHTML(team);
+   writeHTML(generateHTML(team));
 };
 
 //a function that asks the user if they would like to input an additional team member. Depending on response, either fires the addAnother function, or the done function
@@ -166,8 +168,9 @@ const more = () => {
     .then(function(res) {
       if (res.add == "yes") {
         addAnother();
-      } else done();
-    });
+      } else done(team);
+        
+    })
 };
 
 //a function that determines if the next team member to be added is an intern or an engineer, that triggers the appropriate "new" function
