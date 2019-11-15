@@ -10,10 +10,12 @@ const generateHTML = require("./generateHTML");
 const writeFileAsync = util.promisify(fs.writeFile);
 
 const writeHTML = function(generateHTML) {
-  writeFileAsync("index.html", generateHTML);
+  writeFileAsync("./output/team.html", generateHTML);
 };
 
-const team = [];
+const managerArr = [];
+const enginArr=[];
+const internArr = [];
 
 //the main function of the app (and the one that triggers on app launch), this function collects the data on the office manager (the first member to be inputed), it then creates a new Manager instance with the collected information, pushes that instance to the team array, and fires the more function.
 
@@ -26,7 +28,7 @@ const teamMaker = () => {
       {
         type: "input",
         message: "What is your name?",
-        name: "managerName"
+        name: "name"
       },
       {
         type: "input",
@@ -46,13 +48,13 @@ const teamMaker = () => {
     ])
     .then(function(data) {
       const teamManager = new Manager(
-        data.managerName,
+        data.name,
         data.id,
         data.email,
         data.officeNumber,
         "Manager"
       );
-      team.push(teamManager);
+      managerArr.push(teamManager);
     })
     .then(function() {
       more();
@@ -66,22 +68,22 @@ const newIntern = () => {
     .prompt([
       {
         type: "input",
-        message: "What is your name?",
+        message: "What is this member's name?",
         name: "name"
       },
       {
         type: "input",
-        message: "What is your ID number?",
+        message: "What is this member's ID number?",
         name: "id"
       },
       {
         type: "input",
-        message: "What is your email address?",
+        message: "What is this member's email address?",
         name: "email"
       },
       {
         type: "input",
-        message: "Which school did you go to?",
+        message: "Which school did this member go to?",
         name: "school"
       }
     ])
@@ -93,7 +95,7 @@ const newIntern = () => {
         res.school,
         "Intern"
       );
-      team.push(member);
+      internArr.push(member);
     })
     .then(function() {
       more();
@@ -107,22 +109,22 @@ const newEngineer = () => {
     .prompt([
       {
         type: "input",
-        message: "What is your name?",
+        message: "What is this member's name?",
         name: "name"
       },
       {
         type: "input",
-        message: "What is your ID number?",
+        message: "What is this member's ID number?",
         name: "id"
       },
       {
         type: "input",
-        message: "What is your email address?",
+        message: "What is this member's email address?",
         name: "email"
       },
       {
         type: "input",
-        message: "What is your GitHub username?",
+        message: "What is this member's GitHub username?",
         name: "github"
       }
     ])
@@ -134,7 +136,7 @@ const newEngineer = () => {
         res.github,
         "Engineer"
       );
-      team.push(member);
+      enginArr.push(member);
     })
     .then(function() {
       more();
@@ -143,14 +145,14 @@ const newEngineer = () => {
 
 //a function that fires once all information has been collected. Currently only prints team array, will fire the generateHTML function eventually.
 
-async function done(team)  {
+async function done(managerArr, enginArr, internArr)  {
   
   console.log(
-    "Thank you for adding all your team members. With use of magic, we will now present you with a webpage for them! Here are all team members added:"
+    "Thank you for adding all your team members. With use of magic, we will now create a webpage displaying this info in shining colors! You will find the new HTML file in the 'output' folder. How exciting."
   ); 
   
-    generateHTML(team);
-   writeHTML(generateHTML(team));
+    generateHTML(managerArr, enginArr, internArr);
+   writeHTML(generateHTML(managerArr, enginArr, internArr));
 };
 
 //a function that asks the user if they would like to input an additional team member. Depending on response, either fires the addAnother function, or the done function
@@ -168,7 +170,7 @@ const more = () => {
     .then(function(res) {
       if (res.add == "yes") {
         addAnother();
-      } else done(team);
+      } else done(managerArr, enginArr, internArr);
         
     })
 };
@@ -177,7 +179,7 @@ const more = () => {
 
 const addAnother = () => {
   console.log(
-    "cool, we will continue. Please enter information for the next team member."
+    "How fun. Please enter information for the next team member."
   );
   inquirer
     .prompt([
