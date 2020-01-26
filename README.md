@@ -22,5 +22,7 @@ Once the generated HTML is returned, an asynchronous fs write function launches 
 This app uses several Node modules: fs, inquirer, and util, as well as jest for initial testing of the created classes.
 
 
+### Use
 
+To use this program, clone it, and in the terminal launch it using the app.js file (as seen in the gif).
 
