@@ -1,4 +1,5 @@
 #  Template Engine - Employee Summary
+![](demo.gif)
 
 ## Summary
 
